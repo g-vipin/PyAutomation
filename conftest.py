@@ -1,14 +1,10 @@
 import json
 import pytest
 import logging
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service as ChromeService
-from selenium.webdriver.chrome.options import Options as ChromeOptions
-from selenium.webdriver.firefox.service import Service as FirefoxService
-from selenium. webdriver.firefox.options import Options as FirefoxOptions
+from Helpers.DriverFactory import DriverFactory as DF
 
 logging.basicConfig(
-    filename= "logs/PyAutomation.log",
+    filename= "logs/PyAutomation.txt",
     level=logging.DEBUG,
     format="%(asctime)s - %(level)s - %(message)s"
     )
@@ -24,17 +20,8 @@ def config():
 @pytest.fixture(scope="function")
 def browser(config):
     browser_name: str = config["browser"]
-    if browser_name.lower() == "chrome":
-        options = ChromeOptions()
-        service = ChromeService()
-        driver = webdriver.Chrome(options= options, service= service)
-    elif browser_name.lower() == "firefox":
-        options = FirefoxOptions()
-        service = FirefoxService()
-        driver = webdriver.Firefox(options=options, service = service)
-    else:
-        raise ValueError(f"Unsupported browser type {browser_name}") 
-
+    df = DF()
+    driver = df.get_Web_driver(browser_name = browser_name)
     driver.maximize_window()
     driver.implicitly_wait(config["timeout"])
     yield driver

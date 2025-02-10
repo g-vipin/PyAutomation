@@ -5,21 +5,17 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium. webdriver.firefox.options import Options as FirefoxOptions
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
-from conftest import config
 
 class DriverFactory:
-    def __init__(self):
-        pass
-    def get_Web_driver(self):
-        browser_name: str = config["browser"]
+    def get_Web_driver(self, browser_name: str):
         match browser_name.lower():
             case "chrome":
                 options = ChromeOptions()
-                service = ChromeService()
-                return webdriver.Chrome(options, service, ChromeDriverManager().install())
+                service = ChromeService(ChromeDriverManager().install())
+                return webdriver.Chrome(options = options, service = service)
             case "firefox":
                 options = FirefoxOptions()
-                service = FirefoxService()
-                return webdriver.Firefox(options, service, GeckoDriverManager().install())
+                service = FirefoxService(GeckoDriverManager().install())
+                return webdriver.Firefox(options = options, service = service)
             case _: 
-                raise ValueError("Unsupprted Browser type {browser_name}",browser_name)
+                raise ValueError(f"Unsupprted Browser type {browser_name}") 
