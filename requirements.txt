@@ -1,0 +1,11 @@
+selenium
+pytest
+pytest-html
+pytest-xdist
+pytest-rerunfailures
+webdriver-manager
+requests
+allure-pytest
+behave
+faker
+pyhamcrest
