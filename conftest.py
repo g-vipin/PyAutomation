@@ -1,8 +1,10 @@
 import json
 import pytest
 import logging
+import os
 from Helpers.DriverFactory import DriverFactory as DF
 
+os.makedirs("logs", exist_ok=True)
 logging.basicConfig(
     filename= "logs/PyAutomation.txt",
     level=logging.DEBUG,
