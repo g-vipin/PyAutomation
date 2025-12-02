@@ -1,6 +1,7 @@
-from selenium.webdriver.remote.webdriver import WebDriver
-from hamcrest import assert_that, equal_to
 import pytest
+from hamcrest import assert_that, equal_to
+from selenium.webdriver.remote.webdriver import WebDriver
+
 
 @pytest.mark.selenium
 def test_selenium(selenium_browser: WebDriver, config):

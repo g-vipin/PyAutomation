@@ -1,6 +1,39 @@
 {
+  "deafults": {
     "base_url": "https://saucelabs.com",
     "browser": "chrome",
-    "timeout": 10
+    "timeout": 10,
+    "headless": false,
+    "remote": false
+  },
+  "browserstack": {
+    "browser": "chrome",
+    "user": "${BROWSERSTACK_USER}",
+    "key": "${BROWSERSTACK_KEY}",
+    "remote": true,
+    "remote_url": "https://hub-cloud.browserstack.com/wd/hub"
+  },
+  "android": {
+    "platform": "android",
+    "remote_url": "http://localhost:4723/wd/hub",
+    "app_path": "/Users/vipin/apps/MyApp.apk",
+    "device_name": "Pixel_7",
+    "platform_version": "13.0"
+  },
+  "ios": {
+    "platform": "ios",
+    "remote_url": "http://localhost:4723/wd/hub",
+    "app_path": "/Users/vipin/apps/MyApp.ipa",
+    "device_name": "iPhone 14",
+    "platform_version": "16.0"
+  },
+  "staging": {
+    "ssh_host": "staging.myserver.com",
+    "ssh_user": "ubuntu",
+    "ssh_password": "${SSH_PASS}",
+    "db_host": "staging-db.example.com",
+    "db_name": "test_db",
+    "db_user": "dbadmin",
+    "db_password": "${DB_PASS}"
   }
-  
+}
