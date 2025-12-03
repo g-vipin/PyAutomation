@@ -2,8 +2,8 @@
 
 A **modular, scalable, and enterprise-grade test automation framework** built with **Python + pytest**
 
-Supports **UI (Selenium/Appium)**, **API (requests + pydantic)**, and **External Service Testing** (SSH,  Cloud).
-Implements clean separation of concerns, configuration injection, and parallelism.
+Supports **UI (Selenium/Appium)**, **API (requests + pydantic)**, and **External Service Testing** (SSH, Cloud).
+Implements clean separation of concerns, configuration injection and parallelism.
 
 ---
 
@@ -59,25 +59,33 @@ tests/
 └── requirements.txt
 
 ---
-1️⃣ Install Dependencies
+
+## ⌨️ Commands
+
+- Install Dependencies
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-2️⃣ Run Locally
+- Run Locally
 pytest -m ui --env=default
-3️⃣ Run on BrowserStack
+- Run on BrowserStack
 pytest -m ui --env=browserstack
-4️⃣ Run API Tests
+- Run API Tests
 pytest -m api
-5️⃣ Run in Parallel
+- Run in Parallel
 pytest -n auto -m "ui or api"
-📊 Reporting
+- 📊 Reporting
 🧩 Allure
 pytest --alluredir=reports/allure-results
 allure serve reports/allure-results
-📜 HTML
+- 📜 HTML
 pytest --html=reports/report.html --self-contained-html
-🧰 Tech Stack Summary
+- Run all tests:
+pytest -n auto
+
+---
+
+## 🧰 Tech Stack Summary
 Category	Library
 Test Runner	pytest
 Web UI	selenium
@@ -85,17 +93,24 @@ Mobile	appium-python-client
 API	requests, pydantic
 Config	PyYAML, python-dotenv
 SSH paramiko
-Reporting	allure-pytest, pytest-html
+Reporting allure-pytest, pytest-html
 Parallelism	pytest-xdist
-Code Style	black, flake8
-Run all tests:
-pytest -n auto
-📘 References
+Code Style black, flake8
+
+---
+
+## 📘 References
+
 PEP 8 – Python Style Guide
 pytest Docs
 Selenium Docs
 Appium Python Client
 Allure Pytest
-📜 License
+
+---
+
+## 📜 License
+
 MIT License © 2025 [Vipin G]
+
 ---
