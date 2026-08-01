@@ -1,8 +1,6 @@
 from typing import cast
-
 import pytest
 from appium.webdriver.webdriver import WebDriver
-
 
 @pytest.mark.mobile
 def test_android_login(driver: WebDriver):

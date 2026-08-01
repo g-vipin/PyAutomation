@@ -1,5 +1,5 @@
 {
-  "deafults": {
+  "default": {
     "base_url": "https://saucelabs.com",
     "browser": "chrome",
     "timeout": 10,
@@ -8,6 +8,7 @@
   },
   "browserstack": {
     "browser": "chrome",
+    "remote_type": "browserstack",
     "user": "${BROWSERSTACK_USER}",
     "key": "${BROWSERSTACK_KEY}",
     "remote": true,
@@ -28,6 +29,8 @@
     "platform_version": "16.0"
   },
   "staging": {
+    "base_url": "https://saucelabs.com",
+    "browser": "chrome",
     "ssh_host": "staging.myserver.com",
     "ssh_user": "ubuntu",
     "ssh_password": "${SSH_PASS}",

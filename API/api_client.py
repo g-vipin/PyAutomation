@@ -1,13 +1,11 @@
 from typing import Optional, Type, TypeVar
-
 import requests
 from pydantic import TypeAdapter
 
 T = TypeVar("T")
 
-
 class BaseApiClient:
-    def __init__(self, base_url: str, token: str, default_headers: dict = None):
+    def __init__(self, base_url: str, token: str, default_headers: dict = {}):
         self.session = requests.Session()
         self.base_url = base_url.rstrip("/")
         headers = {
@@ -28,6 +26,6 @@ class BaseApiClient:
         resp = self.request(method, path, **kwargs)
         resp.raise_for_status()
         if response_model is None:
-            return None
+            return None 
         data = resp.json()
         return TypeAdapter(response_model).validate_python(data)

@@ -1,7 +1,9 @@
 from appium import webdriver
+from appium.options.common import AppiumOptions
+from config.config import Config
 
-from core import Config
-
+def _appium_options(capabilities):
+    return AppiumOptions().load_capabilities(capabilities)
 
 def create_android_driver(config: Config):
     """Create Android driver using UIAutomator2."""
@@ -13,8 +15,7 @@ def create_android_driver(config: Config):
         "app": config.app_path or "/path/to/app.apk",
         "appWaitActivity": "*",
     }
-    return webdriver.Remote(command_executor=config.remote_url, desired_capabilities=capabilities)
-
+    return webdriver.Remote(command_executor=config.remote_url, options=_appium_options(capabilities))
 
 def create_ios_driver(config):
     """Create iOS driver using XCUITest."""
@@ -25,8 +26,7 @@ def create_ios_driver(config):
         "automationName": "XCUITest",
         "app": config.app_path or "/path/to/app.ipa",
     }
-    return webdriver.Remote(command_executor=config.remote_url, desired_capabilities=capabilities)
-
+    return webdriver.Remote(command_executor=config.remote_url, options=_appium_options(capabilities))
 
 def create_windows_driver(config):
     """Create Windows app driver."""
@@ -35,4 +35,4 @@ def create_windows_driver(config):
         "deviceName": "WindowsPC",
         "app": config.app_path or "Microsoft.WindowsCalculator_8wekyb3d8bbwe!App",
     }
-    return webdriver.Remote(command_executor=config.remote_url, desired_capabilities=capabilities)
+    return webdriver.Remote(command_executor=config.remote_url, options=_appium_options(capabilities))

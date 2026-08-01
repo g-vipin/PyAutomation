@@ -1,7 +1,13 @@
 import os
-
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
+def _options_for(browser, capabilities):
+    options = FirefoxOptions() if browser == "firefox" else ChromeOptions()
+    for key, value in capabilities.items():
+        options.set_capability(key, value)
+    return options
 
 def create_browserstack_driver(config):
     """Create a remote WebDriver for BrowserStack."""
@@ -24,10 +30,9 @@ def create_browserstack_driver(config):
     }
 
     return webdriver.Remote(
-        command_executor="https://hub.browserstack.com/wd/hub",
-        desired_capabilities=capabilities,
+        command_executor=config.remote_url or "https://hub.browserstack.com/wd/hub",
+        options=_options_for(config.browser, capabilities),
     )
-
 
 def create_saucelabs_driver(config):
     """Create a remote WebDriver for SauceLabs."""
@@ -48,4 +53,4 @@ def create_saucelabs_driver(config):
     }
 
     url = f"https://{user}:{key}@ondemand.saucelabs.com:443/wd/hub"
-    return webdriver.Remote(command_executor=url, desired_capabilities=capabilities)
+    return webdriver.Remote(command_executor=url, options=_options_for(config.browser, capabilities))

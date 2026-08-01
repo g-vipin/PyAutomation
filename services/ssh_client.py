@@ -1,6 +1,5 @@
 import paramiko
 
-
 class SSHClient:
     def __init__(self, host, username, password=None, pkey_path=None):
         self.client = paramiko.SSHClient()
