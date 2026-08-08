@@ -1,6 +1,6 @@
 # 🧪 Python Test Automation Framework
 
-A **modular, scalabl and enterprise-grade test automation framework** built with **Python + pytest**
+A **modular, scalable and enterprise-grade test automation framework** built with **Python + pytest**
 
 Supports **UI (Selenium/Appium)**, **API (requests + pydantic)** and **External Service Testing** (SSH, Cloud).
 Implements clean separation of concerns, configuration injection and parallelism.
