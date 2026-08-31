@@ -23,12 +23,12 @@ Implements clean separation of concerns, configuration injection and parallelism
 
 ## 📁 Folder Structure
 
-tests/
+PYAUTOMATION/
 ├── conftest.py
 ├── config/
 │ ├── init.py
 │ ├── config.py
-│ ├── config.yaml
+│ ├── config.json
 │ └── .env
 ├── drivers/
 │ ├── init.py

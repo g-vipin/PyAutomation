@@ -9,3 +9,20 @@ line_length = 120
 max-line-length = 120
 ignore = ["E203", "E501"]
 exclude = ["venv", "__pycache__", "build", "dist"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --strict-markers"
+
+[tool.coverage.run]
+source = ["framework"]
+
+[tool.coverage.report]
+fail_under = 80

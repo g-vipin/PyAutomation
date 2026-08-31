@@ -1,6 +1,7 @@
 import os
 import allure
 import pytest
+import uuid
 from config.config import Config
 from drivers.driver_factory import get_driver
 from pages.login_page import LoginPage
@@ -62,3 +63,7 @@ def pytest_runtest_makereport(item, call):
 #     flake8_result = subprocess.run(["flake8", "."], capture_output=True, text=True)
 #     if black_result.returncode != 0 or flake8_result.returncode != 0:
 #         pytest.exit("Linting failed. Fix issues before running tests.")
+
+@pytest.fixture
+def correlation_id():
+    return str(uuid.uuid4)
