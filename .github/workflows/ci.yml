@@ -23,7 +23,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install black flake8 pytest pytest-html pytest-xdist
+          pip install black flake8 pytest pytest-html pytest-xdist openai pydantic
 
       - name: Run Black formatter check
         run: black --check .
@@ -31,11 +31,21 @@ jobs:
       - name: Run Flake8 linting
         run: flake8 .
 
-      - name: Run Pytest (headless mode)
+      - name: Run Automation Tests (headless mode)
+        id: run_tests
         env:
           BASE_URL: https://saucelabs.com
           BROWSER: chrome
-        run: pytest -v --maxfail=1 --disable-warnings --html=reports/report.html
+        run: pytest tests/ -v --maxfail=1 --disable-warnings --html=reports/report.html --log-file=test_run.log
+        continue-on-error: true
+
+      - name: Run AI Log Triage on Failure
+        if: steps.run_tests.outcome == 'failure'
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python ci_log_triage.py --log-file test_run.log
 
       - name: Upload test report
         if: always()
