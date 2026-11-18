@@ -14,7 +14,7 @@ def create_local_chrome(headless=False):
 def create_local_firefox(headless=False):
     opts = FirefoxOptions()
     if headless:
-        opts.add_argument("-headless")
+        opts.add_argument("--headless")
     return webdriver.Firefox(options=opts)
 
 
@@ -27,7 +27,7 @@ def get_browser_options(browser, headless=False):
     if browser == "firefox":
         options = FirefoxOptions()
         if headless:
-            options.add_argument("-headless")
+            options.add_argument("--headless")
         return options
     raise ValueError(f"Unsupported browser: {browser}")
 
@@ -46,9 +46,8 @@ def get_driver(config):
             return create_browserstack_driver(config)
         elif config.remote_type == "saucelabs":
             return create_saucelabs_driver(config)
-        elif config.remote_type:
+        else:
             raise ValueError(f"Unsupported remote type: {config.remote_type}")
-        return create_remote(config.remote_url, config.browser, headless=config.headless)
     else:
         if config.platform == "android":
             return create_android_driver(config)
@@ -56,7 +55,8 @@ def get_driver(config):
             return create_ios_driver(config)
         elif config.platform == "windows":
             return create_windows_driver(config)
-    factory = FACTORY_MAP.get(config.browser)
-    if not factory:
-        raise ValueError(f"Unsupported browser: {config.browser}")
-    return factory(headless=config.headless)
+        else:
+            factory = FACTORY_MAP.get(config.browser)
+            if not factory:
+                raise ValueError(f"Unsupported browser: {config.browser}")
+            return factory(headless=config.headless)
